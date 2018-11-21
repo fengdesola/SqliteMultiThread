@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    
+
+
+    <Button
+        android:id="@+id/btnInsertTeacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="insert teacher" />
+    <Button
+        android:id="@+id/btnInsertStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="insert student" />
+    <Button
+        android:id="@+id/btnQueryTeacher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="query teacher" />
+    <Button
+        android:id="@+id/btnQueryStudent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="query student" />
+    <Button
+        android:id="@+id/btnInsertBoth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="insert both" />
+    <Button
+        android:id="@+id/btnQueryBoth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="query both" />
+    <Button
+        android:id="@+id/btnInsertQueryBoth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="insert query both" />
+</LinearLayout>

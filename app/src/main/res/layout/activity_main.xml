@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sqlite模式设置为 enableWriteAheadLogging，需要自己控制锁，使用多个openHelper连接sqlite，可以实现多线程读写"
+        />
+    <Button
+        android:id="@+id/btnMulti"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Multi" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="sqlite默认模式，sqlite内部有锁，使用单个openHelper连接sqlite，多线程下读写安全"
+        />
+    <Button
+        android:id="@+id/btnSingle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Single" />
+</LinearLayout>
