@@ -9,6 +9,7 @@ import com.aaa.sqlitemultithread.multiopenhelper.database.infodb.InfoDao;
 import com.aaa.sqlitemultithread.multiopenhelper.model.Student;
 import com.aaa.sqlitemultithread.multiopenhelper.model.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MultiActivity extends AppCompatActivity implements View.OnClickListener {
@@ -88,7 +89,7 @@ public class MultiActivity extends AppCompatActivity implements View.OnClickList
                 @Override
                 public void run() {
                     InfoDao dao = InfoDao.getSingleton();
-                    dao.insertS();
+                    dao.insertS(getStudentList());
                     System.out.println(Thread.currentThread().getId() + "====S");
                 }
             }.start();
@@ -107,5 +108,13 @@ public class MultiActivity extends AppCompatActivity implements View.OnClickList
                 }
             }.start();
         }
+    }
+
+
+    private ArrayList<Student> getStudentList() {
+        ArrayList<Student> list = new ArrayList<>();
+        list.add(new Student( "s11", 11));
+        list.add(new Student( "s22", 22));
+        return list;
     }
 }

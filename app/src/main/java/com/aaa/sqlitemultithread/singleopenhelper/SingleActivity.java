@@ -83,7 +83,7 @@ public class SingleActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     public void insertStudent(){
-        for(int i =0 ; i < 3; i++){
+        for(int i =0 ; i < 6; i++){
             new Thread(){
                 @Override
                 public void run() {
