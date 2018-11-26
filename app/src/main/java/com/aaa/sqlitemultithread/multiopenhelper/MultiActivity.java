@@ -78,13 +78,13 @@ public class MultiActivity extends AppCompatActivity implements View.OnClickList
                 public void run() {
                     InfoDao dao = InfoDao.getSingleton();
                     List<Student> students = dao.queryS();
-                    System.out.println("s=="+students);
+                    System.out.println("s=="+students.size());
                 }
             }.start();
     }
 
     public void insertStudent(){
-        for(int i =0 ; i < 3; i++){
+        for(int i =0 ; i < 1; i++){
             new Thread(){
                 @Override
                 public void run() {
@@ -113,8 +113,10 @@ public class MultiActivity extends AppCompatActivity implements View.OnClickList
 
     private ArrayList<Student> getStudentList() {
         ArrayList<Student> list = new ArrayList<>();
-        list.add(new Student( "s11", 11));
-        list.add(new Student( "s22", 22));
+        for(int i = 0 ; i < 100000; i ++) {
+            list.add(new Student("s11", 11));
+//            list.add(new Student("s22", 22));
+        }
         return list;
     }
 }

@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="sqlite模式设置为 enableWriteAheadLogging，需要自己控制锁，使用多个openHelper连接sqlite，可以实现多线程读写"
+        android:text="sqlite模式设置为 enableWriteAheadLogging，需要自己控制锁(如果不控制读写锁，比如大量数据写入时，同时去读取数据，会读取到还未插入大量数据前表中的数据)，使用多个openHelper连接sqlite，可以实现多线程读写"
         />
     <Button
         android:id="@+id/btnMulti"

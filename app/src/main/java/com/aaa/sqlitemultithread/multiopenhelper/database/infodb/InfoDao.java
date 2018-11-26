@@ -11,10 +11,12 @@ import com.aaa.sqlitemultithread.multiopenhelper.model.Teacher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class InfoDao {
-//    ReadWriteLock rwlT = new ReentrantReadWriteLock();//teacher表的锁
-//    ReadWriteLock rwlS = new ReentrantReadWriteLock();//student表的锁
+    ReadWriteLock rwlT = new ReentrantReadWriteLock();//teacher表的锁
+    ReadWriteLock rwlS = new ReentrantReadWriteLock();//student表的锁
 
     
     
@@ -37,7 +39,7 @@ public class InfoDao {
     }
     
     public void deleteAll(){
-//        rwlT.writeLock().lock();// 取到写锁
+        rwlT.writeLock().lock();// 取到写锁
         SQLiteDatabase db = null;
         InfoDbManager infoDbManager = null;
         try {
@@ -54,12 +56,12 @@ public class InfoDao {
 
             if(infoDbManager != null)
                 infoDbManager.closeDatabase();
-//            rwlT.writeLock().unlock();
+            rwlT.writeLock().unlock();
         }
     }
     
     public void insertT(){
-//        rwlT.writeLock().lock();// 取到写锁
+        rwlT.writeLock().lock();// 取到写锁
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
@@ -82,12 +84,12 @@ public class InfoDao {
 
             if(infoDbManager != null)
                 infoDbManager.closeDatabase();
-//            rwlT.writeLock().unlock();
+            rwlT.writeLock().unlock();
         }
                
     }
     public void insertS(){
-//        rwlS.writeLock().lock();
+        rwlS.writeLock().lock();
         SQLiteDatabase db = null;
         InfoDbManager infoDbManager = null;
         try {
@@ -112,12 +114,12 @@ public class InfoDao {
 
             if(infoDbManager != null)
                 infoDbManager.closeDatabase();
-//            rwlS.writeLock().unlock();
+            rwlS.writeLock().unlock();
         }
         
     }
     public void insertS(ArrayList<Student> list){
-//        rwlS.writeLock().lock();
+        rwlS.writeLock().lock();
         SQLiteDatabase db = null;
         InfoDbManager infoDbManager = null;
         try {
@@ -125,6 +127,7 @@ public class InfoDao {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println("insert===============start");
         try {
             infoDbManager = new InfoDbManager(new InfoDbOpenHelper(App.context));
             db = infoDbManager.openDatabase();
@@ -149,7 +152,7 @@ public class InfoDao {
                 db.endTransaction();
             if(infoDbManager != null)
                 infoDbManager.closeDatabase();
-//            rwlS.writeLock().unlock();
+            rwlS.writeLock().unlock();
         }
         
     }
@@ -158,7 +161,7 @@ public class InfoDao {
     String[] t_col = {Constant.ID, Constant.NAME, Constant.ADDRESS};
     public List<Teacher> queryT(){
 
-//        rwlT.readLock().lock();
+        rwlT.readLock().lock();
         SQLiteDatabase db = null;
         InfoDbManager infoDbManager = null;
         Cursor cursor = null;
@@ -186,7 +189,7 @@ public class InfoDao {
             
             if(infoDbManager != null)
                 infoDbManager.closeDatabase();
-//            rwlT.readLock().unlock();
+            rwlT.readLock().unlock();
         }
 
         return null;
@@ -197,7 +200,7 @@ public class InfoDao {
     String[] s_col = {Constant.ID, Constant.NAME, Constant.AGE};
     public List<Student> queryS(){
 
-//        rwlS.readLock().lock();
+        rwlS.readLock().lock();
         SQLiteDatabase db = null;
         Cursor cursor = null;
         InfoDbManager infoDbManager = null;
@@ -224,7 +227,7 @@ public class InfoDao {
             
             if(infoDbManager != null)
                 infoDbManager.closeDatabase();
-//            rwlS.readLock().unlock();
+            rwlS.readLock().unlock();
         }
 
         return null;

@@ -9,6 +9,7 @@ import com.aaa.sqlitemultithread.singleopenhelper.database.infodb.InfoDao;
 import com.aaa.sqlitemultithread.singleopenhelper.model.Student;
 import com.aaa.sqlitemultithread.singleopenhelper.model.Teacher;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SingleActivity extends AppCompatActivity implements View.OnClickListener {
@@ -77,18 +78,18 @@ public class SingleActivity extends AppCompatActivity implements View.OnClickLis
                 public void run() {
                     InfoDao dao = InfoDao.getSingleton();
                     List<Student> students = dao.queryS();
-                    System.out.println("s=="+students);
+                    System.out.println("s=="+students.size());
                 }
             }.start();
     }
 
     public void insertStudent(){
-        for(int i =0 ; i < 6; i++){
+        for(int i =0 ; i < 1; i++){
             new Thread(){
                 @Override
                 public void run() {
                     InfoDao dao = InfoDao.getSingleton();
-                    dao.insertS();
+                    dao.insertS(getStudentList());
                     System.out.println(Thread.currentThread().getId() + "====S");
                 }
             }.start();
@@ -107,5 +108,15 @@ public class SingleActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }.start();
         }
+    }
+
+
+    private ArrayList<Student> getStudentList() {
+        ArrayList<Student> list = new ArrayList<>();
+        for(int i = 0 ; i < 100000; i ++) {
+            list.add(new Student("s11", 11));
+//            list.add(new Student("s22", 22));
+        }
+        return list;
     }
 }

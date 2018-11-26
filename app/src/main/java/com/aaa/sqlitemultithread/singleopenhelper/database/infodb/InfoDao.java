@@ -3,6 +3,7 @@ package com.aaa.sqlitemultithread.singleopenhelper.database.infodb;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteStatement;
 
 import com.aaa.sqlitemultithread.singleopenhelper.model.Student;
 import com.aaa.sqlitemultithread.singleopenhelper.model.Teacher;
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InfoDao {
+    
 //    ReadWriteLock rwlT = new ReentrantReadWriteLock();//teacher表的锁
 //    ReadWriteLock rwlS = new ReentrantReadWriteLock();//student表的锁
 
@@ -109,6 +111,44 @@ public class InfoDao {
         }
         
     }
+
+    public void insertS(ArrayList<Student> list){
+//        rwlS.writeLock().lock();
+        SQLiteDatabase db = null;
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("insert===============start");
+        try {
+            db = infoDbManager.openDatabase();
+
+            String sql = "insert into " + Constant.TABLE_STUDENT + "("
+                    + Constant.NAME + ","
+                    + Constant.AGE
+                    + ") " + "values(?,?)";
+            SQLiteStatement stat = db.compileStatement(sql);
+            db.beginTransaction();
+            for (Student remoteAppInfo : list) {
+                stat.bindString(1, remoteAppInfo.name);
+                stat.bindLong(2, remoteAppInfo.age);
+                long result = stat.executeInsert();
+            }
+            db.setTransactionSuccessful();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+
+            if(db != null)
+                db.endTransaction();
+            if(infoDbManager != null)
+                infoDbManager.closeDatabase();
+//            rwlS.writeLock().unlock();
+        }
+
+    }
+    
     String[] t_col = {Constant.ID, Constant.NAME, Constant.ADDRESS};
     public List<Teacher> queryT(){
 
